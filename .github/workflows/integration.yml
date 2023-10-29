@@ -20,16 +20,17 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
-    - name: Install dependencies
+    - name: Install system dependencies
       run: |
+        sudo apt-get -y install jq
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then
+    - name: Install app dependencies
+        if [ -f Pipfile.lock ]; then
+          jq -r '.default
+               | to_entries[]
+               | .key + .value.version' \
+               Pipfile.lock > requirements.txt
           pip install -r requirements.txt
-        fi
-        if [ ! -f requirements.txt ] && [ -f Pipfile ]; then
-          pip install pipenv
-          pipenv install
-          pipenv shell
         fi
     - name: Lint with flake8
       run: |
