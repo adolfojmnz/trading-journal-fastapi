@@ -7,6 +7,8 @@ name = "pypi"
 fastapi = {extras = ["all"], version = "*"}
 sqlalchemy = "*"
 python-dotenv = "*"
+pytest = "*"
+flake8 = "*"
 
 [dev-packages]
 
