@@ -3,7 +3,6 @@ from fastapi import APIRouter, HTTPException, Depends
 
 from app.crud import user as user_crud
 from app.schemas import user as user_schemas
-from app.models.user import User as UserModel
 
 from app.api.deps import get_db
 from app.db.session import Base, engine
@@ -18,7 +17,9 @@ def create_user(user: user_schemas.UserCreate, db: Session = Depends(get_db)):
     if user_crud.get_user_by_email(db, email=user.email) is not None:
         raise HTTPException(status_code=400, detail="Email already registered")
     if user_crud.get_user_by_username(db, username=user.username) is not None:
-        raise HTTPException(status_code=400, detail="Username already registered")
+        raise HTTPException(
+            status_code=400, detail="Username already registered"
+        )
     return user_crud.create_user(db, user)
 
 

@@ -3,7 +3,6 @@ from fastapi import APIRouter, HTTPException, Depends
 
 from app.crud import asset as asset_crud
 from app.schemas import asset as asset_schemas
-from app.models.asset import Asset as AssetModel
 
 from app.api.deps import get_db
 from app.db.session import Base, engine
@@ -14,7 +13,8 @@ router = APIRouter()
 
 
 @router.post("", response_model=asset_schemas.Asset)
-def create_asset(asset: asset_schemas.AssetCreate, db: Session = Depends(get_db)):
+def create_asset(asset: asset_schemas.AssetCreate,
+                 db: Session = Depends(get_db)):
     if asset_crud.get_asset(db, asset_symbol=asset.symbol):
         raise HTTPException(status_code=400,
                             detail="Asset's symbol already registered")
