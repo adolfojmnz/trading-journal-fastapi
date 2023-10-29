@@ -3,7 +3,6 @@ from fastapi import APIRouter, HTTPException, Depends
 
 from app.crud import trade as trade_crud
 from app.schemas import trade as trade_schemas
-from app.models.trade import Trade as TradeModel
 
 from app.api.deps import get_db
 from app.db.session import Base, engine
@@ -14,15 +13,18 @@ router = APIRouter()
 
 
 @router.post("", response_model=trade_schemas.Trade)
-def create_trade(trade: trade_schemas.TradeCreate, db: Session = Depends(get_db)):
+def create_trade(trade: trade_schemas.TradeCreate,
+                 db: Session = Depends(get_db)):
     if trade_crud.get_trade(db, trade.id) is not None:
-        raise HTTPException(status_code=400, detail="Trade's id already registered")
+        raise HTTPException(
+            status_code=400, detail="Trade's id already registered"
+        )
     return trade_crud.create_trade(db, trade)
 
 
 @router.get("", response_model=list[trade_schemas.Trade])
 def get_trades(db: Session = Depends(get_db)):
-    gb_trades = trade_crud.get_trades(db)
+    db_trades = trade_crud.get_trades(db)
     return db_trades
 
 

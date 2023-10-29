@@ -17,7 +17,8 @@ def create_asset(db: Session, asset: asset_schemas.AssetCreate):
 
 
 def get_asset(db: Session, asset_symbol: str):
-    db_asset = db.query(AssetModel).filter(AssetModel.symbol == asset_symbol).first()
+    db_asset = db.query(AssetModel).filter(
+        AssetModel.symbol == asset_symbol).first()
     return db_asset
 
 
