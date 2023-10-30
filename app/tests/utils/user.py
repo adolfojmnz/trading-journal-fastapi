@@ -1,10 +1,6 @@
 import random
-import string
 
-
-def generate_random_string(length):
-    letters = string.ascii_letters
-    return ''.join(random.choice(letters) for _ in range(length))
+from app.tests.utils.common import generate_random_string
 
 
 def generate_random_email():

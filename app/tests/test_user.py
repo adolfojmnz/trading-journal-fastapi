@@ -1,5 +1,5 @@
 from app.tests.base import client
-from app.tests.utils import generate_random_user
+from app.tests.utils.user import generate_random_user
 
 from httpx import Response
 
