@@ -24,7 +24,7 @@ def test_create_asset():
 
 def test_retrieve_asset():
     db_asset = create_asset().json()
-    response =  client.get(f"/api/assets/{db_asset['symbol']}")
+    response = client.get(f"/api/assets/{db_asset['symbol']}")
     assert response.status_code == 200, response.text
     assert response.json()["name"] == db_asset["name"]
     assert response.json()["symbol"] == db_asset["symbol"]
