@@ -20,6 +20,9 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
+    - name: Set up environment variables
+      run: |
+        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
     - name: Install system dependencies
       run: |
         sudo apt-get -y install jq

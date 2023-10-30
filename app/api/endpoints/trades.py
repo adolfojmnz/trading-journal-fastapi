@@ -12,7 +12,7 @@ Base.metadata.create_all(bind=engine)
 router = APIRouter()
 
 
-@router.post("", response_model=trade_schemas.Trade)
+@router.post("", status_code=201, response_model=trade_schemas.Trade)
 def create_trade(trade: trade_schemas.TradeCreate,
                  db: Session = Depends(get_db)):
     if trade_crud.get_trade(db, trade.id) is not None:

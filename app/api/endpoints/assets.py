@@ -12,7 +12,7 @@ Base.metadata.create_all(bind=engine)
 router = APIRouter()
 
 
-@router.post("", response_model=asset_schemas.Asset)
+@router.post("", status_code=201, response_model=asset_schemas.Asset)
 def create_asset(asset: asset_schemas.AssetCreate,
                  db: Session = Depends(get_db)):
     if asset_crud.get_asset(db, asset_symbol=asset.symbol):
